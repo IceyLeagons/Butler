@@ -1,6 +1,7 @@
 package net.iceyleagons.butler.services.impl
 
 import com.google.maps.GeoApiContext
+import com.google.maps.GeocodingApi
 import com.google.maps.PlacesApi
 import com.google.maps.model.LatLng
 import com.google.maps.model.PlaceType
@@ -43,5 +44,9 @@ class GooglePlacesServiceImpl(@Value("\${google.api.places.token}") val placesTo
                 longitude = it.geometry.location.lng
             )
         }
+    }
+
+    override fun reverseGeocode(lat: Double, lon: Double): String {
+        return GeocodingApi.reverseGeocode(apiContext, LatLng(lat, lon)).await()[0].addressComponents[0].longName
     }
 }
