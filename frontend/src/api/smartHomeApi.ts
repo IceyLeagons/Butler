@@ -1,19 +1,18 @@
-type Concert = {
+export type SmartAppliance = {
+    controlType: string;
+    controlStatus: number;
+    imageUrl: string;
     name: string;
-    performer: string;
-    location: string;
-    time: Date;
-    avgPrice: number;
-    lowestPrice: number;
+    maker: string;
 }
 
-export default async function getConcerts(token: string): Promise<Concert[]> {
+export default async function getAppliances(token: string): Promise<SmartAppliance[]> {
     return new Promise(async (resolve) => {
         navigator.geolocation.getCurrentPosition(async (pos) => {
             let lat = pos.coords.latitude;
             let long = pos.coords.longitude;
 
-            let resp = await fetch("/api/me/recommendations/concerts?lat=" + lat + "&lng=" + long, {
+            let resp = await fetch("/api/me/appliances.list", {
                 method: "GET",
                 credentials: 'include',
                 headers: {
@@ -22,17 +21,16 @@ export default async function getConcerts(token: string): Promise<Concert[]> {
             })
             let rawD = await resp.json();
 
-            let result: Concert[] = [];
+            let result: SmartAppliance[] = [];
             for (let i = 0; i < rawD.length; i++) {
                 let data = rawD[i];
 
                 result.push({
+                    controlType: data["controlType"],
+                    controlStatus: data["controlStatus"],
+                    imageUrl: data["imageUrl"],
                     name: data["name"],
-                    performer: data["performer"],
-                    location: data["location"],
-                    time: new Date(data.time["epochSeconds"] * 1000),
-                    avgPrice: data["averagePrice"],
-                    lowestPrice: data["lowestPrice"]
+                    maker: data["maker"]
                 })
             }
 

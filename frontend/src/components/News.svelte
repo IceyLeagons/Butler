@@ -12,8 +12,8 @@
             <a href={item.link} class="new">
                 <div class="left">
                     <img class="sourceImage" src={data.imageUrl}/>
-                    <h1 class="sourceTitle">{item.title}</h1>
-                    <h2 class="newContent">{item.content}</h2>
+                    <h3 class="sourceTitle">{item.title}</h3>
+                    <h5 class="newContent">{item.content}</h5>
                 </div>
                 <h3 class="publish">( {item.publish.toLocaleDateString()} {item.publish.toLocaleTimeString()} )</h3>
             </a>

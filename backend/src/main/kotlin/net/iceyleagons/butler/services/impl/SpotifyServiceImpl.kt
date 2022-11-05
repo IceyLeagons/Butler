@@ -19,6 +19,6 @@ class SpotifyServiceImpl(val seatgeekService: SeatgeekService) : SpotifyService 
     override fun getMostListenedToSeatgeekArtists(user: GatekeeperService.GatekeeperIdentity): List<SeatgeekService.Artist> =
         getMostListenedToArtists(user).map {
             seatgeekService.getArtistByName(it.name)
-        }
+        }.filterNotNull()
 
 }

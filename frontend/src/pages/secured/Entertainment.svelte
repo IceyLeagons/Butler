@@ -2,6 +2,7 @@
     import boredSvg from "../../assets/bored.svg";
     import Videos from "../../components/Videos.svelte";
     import Concerts from "../../components/Concerts.svelte";
+    import Places from "../../components/Places.svelte";
 </script>
 
 <div class="page">
@@ -17,6 +18,7 @@
         <div class="col">
             <div class="card">
                 <h1 class="title">Activities</h1>
+                <Places />
             </div>
         </div>
     </div>

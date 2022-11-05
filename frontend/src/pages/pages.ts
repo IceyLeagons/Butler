@@ -1,5 +1,6 @@
 import Home from "./secured/Home.svelte";
 import Entertainment from "./secured/Entertainment.svelte";
+import Utility from "./secured/Utility.svelte";
 
 export type Page = {
     name: string;
@@ -25,7 +26,7 @@ const pages: Page[] = [
         name: "Utility",
         href: "/utility",
         icon: "fa-solid fa-star",
-        component: Home
+        component: Utility
     }
 ];
 

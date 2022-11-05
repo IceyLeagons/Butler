@@ -67,7 +67,7 @@ tasks.register("processFrontendResources", Copy::class) {
 }
 
 tasks.named("processResources") {
-	// dependsOn(tasks.named("processFrontendResources"))
+	 dependsOn(tasks.named("processFrontendResources"))
 }
 
 tasks.withType<BootJar> {

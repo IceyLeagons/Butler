@@ -18,6 +18,6 @@ class WifiController(val wigleService: WigleService) {
         return wigleService.findWifisNear(latitude, longitude, true)
     }
 
-    data class Wifi(val ssid: String, val freenet: Boolean)
+    data class Wifi(val ssid: String?, val freenet: Boolean, val lat: Double, val lng: Double)
 
 }

@@ -35,7 +35,7 @@ class SeatgeekServiceImpl(@Value("\${seatgeek.api.client_id}") val clientId: Str
      data class Link(val id: String, val url: String, val provider: String)
      @Serializable
      data class Performer(val type: String, val id: Int, val links: List<Link>, val slug: String, @SerialName("short_name") val shortName: String)
-     override fun getArtistByName(artist: String): SeatgeekService.Artist {
+     override fun getArtistByName(artist: String): SeatgeekService.Artist? {
          @Serializable
          data class PerformerResponse(val performers: List<Performer>, val meta: Meta)
 
@@ -47,11 +47,15 @@ class SeatgeekServiceImpl(@Value("\${seatgeek.api.client_id}") val clientId: Str
             .addHeader("Authorization", Credentials.basic(clientId, secret))
             .build()
 
-        return with(json.decodeFromString<PerformerResponse>(client.newCall(req).execute().body.string()).performers.filter {
-            it.type == "band"
-        }[0]) {
-            SeatgeekService.Artist(id, shortName, slug)
-        }
+         try {
+             return with(json.decodeFromString<PerformerResponse>(client.newCall(req).execute().body.string()).performers.filter {
+                 it.type == "band"
+             }[0]) {
+                 SeatgeekService.Artist(id, shortName, slug)
+             }
+         } catch(e: NullPointerException) {
+             return null
+         }
     }
 
     @Serializable
@@ -71,7 +75,7 @@ class SeatgeekServiceImpl(@Value("\${seatgeek.api.client_id}") val clientId: Str
         val req = Request.Builder()
             .get()
             .url("https://api.seatgeek.com/2/events".toHttpUrl().newBuilder()
-                .addQueryParameter("performers.id", artist.id.toString())
+                .addQueryParameter("performers.id", artist?.id?.toString())
                 .build())
             .addHeader("Authorization", Credentials.basic(clientId, secret))
             .build()

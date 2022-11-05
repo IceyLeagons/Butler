@@ -1,5 +1,6 @@
 package net.iceyleagons.butler.services.impl
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.google.maps.GeoApiContext
 import com.google.maps.GeocodingApi
 import com.google.maps.PlacesApi
@@ -20,8 +21,9 @@ class GooglePlacesServiceImpl(@Value("\${google.api.places.token}") val placesTo
     }
 
     override fun getPlacesNear(lat: Double, lon: Double, type: String?): List<GooglePlacesService.Spot> {
-        return PlacesApi.nearbySearchQuery(apiContext, LatLng(lat, lon)).radius(3_500).rankby(RankBy.DISTANCE).await().results.filter {
-            arrayOf(
+        return PlacesApi.nearbySearchQuery(apiContext, LatLng(lat, lon)).radius(3_500).await().results.filter {
+            it.types.contains("museum")
+        /*arrayOf(
                 PlaceType.AMUSEMENT_PARK,
                 PlaceType.ART_GALLERY,
                 PlaceType.BOWLING_ALLEY,
@@ -34,11 +36,12 @@ class GooglePlacesServiceImpl(@Value("\${google.api.places.token}") val placesTo
                 PlaceType.STADIUM,
                 PlaceType.ZOO
             ).any { type ->
-                it.types.contains(type.name)
-            }
+                true //it.types.contains(type.name)
+            }*/
         }.map {
+            println(ObjectMapper().writeValueAsString(it))
             GooglePlacesService.Spot(
-                address = it.formattedAddress,
+                address = it.vicinity,
                 type = it.types.joinToString(separator = ", "),
                 latitude = it.geometry.location.lat,
                 longitude = it.geometry.location.lng

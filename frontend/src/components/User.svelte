@@ -59,9 +59,7 @@
                 bind:this={menuDiv}
                 transition:fly={{ x: -50, duration: 500 }}
         >
-            <a href="/profile" class="menu-item"><i class="fa-solid fa-user icon" /> Profile</a>
 
-            <a href="/settings" class="menu-item"><i class="fa-solid fa-hammer icon" /> Settings</a>
             <a href="http://localhost:8080/link?client_id=dc783715-5e6e-4146-a7bd-7384af6928c4&state=87u92384957n8345vih&redirect_uri=http://localhost:8081/login&token={$currentUser.token}" class="menu-item"><i class="fa-solid fa-plug icon" /> Link</a>
 
             <!-- svelte-ignore a11y-missing-attribute -->

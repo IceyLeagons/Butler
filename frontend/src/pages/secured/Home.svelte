@@ -50,7 +50,7 @@
         </div>
         <div class="col upper">
             <div class="card greeting">
-                <div class="col">
+                <div class="col" style="overflow-y: auto;">
                     <h1 class="title">Did you know, that </h1>
                     {#await getRandomFact()}
                         ...
@@ -111,7 +111,7 @@
     gap: 1rem;
 
     overflow-y: hidden;
-    max-width: 100%;
+    max-width: 60%;
     overflow-x: auto;
     max-height: 500px;
   }
@@ -121,7 +121,7 @@
     height: 31rem;
     flex-grow: 1;
     margin: 0 auto;
-    max-width: 900px;
+    max-width: 1200px;
   }
 
 

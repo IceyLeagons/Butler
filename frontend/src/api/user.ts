@@ -53,7 +53,7 @@ function login(user: User) {
     redirect("/");
 }
 
-const currentUser: Writable<User> = writable({firstName: "Tamás", avatar: "https://hu.gravatar.com/avatar/345b9nu%C3%B63784b5", token: "lololol", expires: -1}); //
+const currentUser: Writable<User> = writable(undefined); // +
 
 export {currentUser, logOut, login, checkSavedCredentialsAndLogIn, fetchUserInformation}
 export default currentUser;

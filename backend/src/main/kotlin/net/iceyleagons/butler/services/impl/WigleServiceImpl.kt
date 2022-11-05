@@ -73,19 +73,19 @@ class WigleServiceImpl(@Value("\${wigle.api.token}") wigleKey: String, restTempl
             /**
              * The SSID with which this network was found.
              */
-            val ssid: String,
+            val ssid: String?,
             /**
              * The QoS number that was caught upon the discovering of this network.
              *
              * A number ranging from 0 to 7 (inclusive, 0..7)
              */
-            val qos: Int,
+            val qos: Int?,
             /**
              * The type of this network.
              *
              * Can be BT, Cell or wifi
              */
-            val type: String,
+            val type: String?,
 
             /**
              * If this network is possibly a freenet - public wifi that is accessible by anyone.
@@ -98,7 +98,7 @@ class WigleServiceImpl(@Value("\${wigle.api.token}") wigleKey: String, restTempl
 
     override fun findWifisNear(latitude: Double, longitude: Double, public: Boolean): List<WifiController.Wifi> {
         fun getWigleWifis(lat1: Double, lat2: Double, long1: Double, long2: Double): WigleResponse =
-            json.decodeFromString(wigleTemplate.getForObject("https://api.wigle.net/api/v2/network/search?onlymine=false&latrange1=$lat1&latrange2=$lat2&longrange1=$long1&longrange2=$long2&lastupdt=20210101${if (public) "freenet=true" else ""}&paynet=false"))
+            json.decodeFromString(wigleTemplate.getForObject("https://api.wigle.net/api/v2/network/search?onlymine=false&latrange1=$lat1&latrange2=$lat2&longrange1=$long1&longrange2=$long2&lastupdt=20210101${if (public) "&freenet=true" else ""}&paynet=false"))
 
         val range = 0.036
 
@@ -109,7 +109,7 @@ class WigleServiceImpl(@Value("\${wigle.api.token}") wigleKey: String, restTempl
         val long2 = longitude + range
 
         return getWigleWifis(lat1, lat2, long1, long2).results.map {
-            WifiController.Wifi(it.ssid, it.freenet == "Y")
+            WifiController.Wifi(it.ssid, it.freenet == "Y", it.trilat.toDouble(), it.trilong.toDouble())
         }
     }
 }

@@ -13,7 +13,7 @@ interface SeatgeekService {
     @Deprecated("use [#getConcerts] instead.")
     fun getConcertsByTime(time: Instant, range: Int): List<Concert>
 
-    fun getArtistByName(artist: String): Artist
+    fun getArtistByName(artist: String): Artist?
 
     fun getConcerts(vararg filters: Filter): List<Concert>
 

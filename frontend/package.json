@@ -24,6 +24,7 @@
     "@fullcalendar/core": "^5.11.3",
     "@fullcalendar/daygrid": "^5.11.3",
     "@fullcalendar/timegrid": "^5.11.3",
+    "leaflet": "^1.9.2",
     "node-sass": "^7.0.3",
     "page": "^1.11.6",
     "sass": "^1.55.0",
