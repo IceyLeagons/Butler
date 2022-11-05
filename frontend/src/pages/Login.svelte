@@ -21,7 +21,7 @@
         <img class="logo" src={logo} alt="Logo" />
         <div class="card">
             <h1>Login</h1>
-            <a class="login-btn">Authenticate with GateKeeper</a>
+            <a class="login-btn" href="http://localhost:8080/authorize?client_id=dc783715-5e6e-4146-a7bd-7384af6928c4&state=u89eruv234b9783745897b&redirect_uri=http://localhost:8081/login">Authenticate with GateKeeper</a>
         </div>
     </div>
 

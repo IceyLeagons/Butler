@@ -11,29 +11,12 @@
     import getCalendarData from "../../api/calendarApi";
     import News from "../../components/News.svelte";
     import getRandomFact from "../../api/randomFactsApi.js";
-
-    function getCalendarOptions(): Promise<any> {
-        return new Promise<any>(async (resolve) => {
-            let options = {
-                droppable: false,
-                editable: false,
-                events: await getCalendarData(),
-                initialView: 'dayGridMonth',
-                plugins: [daygridPlugin, timegridPlugin, interactionPlugin],
-                headerToolbar: {
-                    left: 'prev,next today',
-                    center: 'title',
-                    right: 'dayGridMonth,timeGridWeek,timeGridDay',
-                },
-                height: '100%',
-                weekends: true,
-            };
-            resolve(options);
-        });
-    }
+    import RequestCalendar from "../../components/RequestCalendar.svelte";
 
     let weather = undefined;
     let daytime = getCurrentDaytime();
+
+    $: token = ($currentUser) ? $currentUser.token : ""
 
     onMount(() => {
         navigator.geolocation.getCurrentPosition((data) => {
@@ -85,10 +68,10 @@
     <div class="row">
         <div class="col calendar-container">
             <div class="calendar card">
-                {#await getCalendarOptions()}
+                {#await getCalendarData(token)}
                     Fetching calendar data...
-                {:then options}
-                    <FullCalendar {options} />
+                {:then events}
+                    <RequestCalendar {events} />
                 {/await}
             </div>
         </div>
@@ -130,7 +113,10 @@
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
     overflow-y: hidden;
+    max-width: 100%;
+    overflow-x: auto;
     max-height: 500px;
   }
 

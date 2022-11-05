@@ -65,9 +65,24 @@ function mapNews(json): News {
     }
 }
 
-export async function getNews(): Promise<News[]> {
+export async function getNews(token: string): Promise<News[]> {
     return new Promise(async (resolve) => {
-        resolve(news);
+        let resp = await fetch("/api/me/rss.fetchAll", {
+            method: "GET",
+            credentials: 'include',
+            headers: {
+                'Authorization': 'Bearer ' + token
+            }
+        })
+        let data = await resp.json();
+        let converted
+            : News[] = [];
+
+        for (let i = 0; i < Math.min(data.length, 10); i++) {
+            converted.push(mapNews(data[i]));
+        }
+
+        resolve(converted);
     });
 }
 export type {NewsItem, News}

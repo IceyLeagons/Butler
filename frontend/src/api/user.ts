@@ -5,13 +5,16 @@ export type User = {
     firstName: string;
     avatar: string;
     token: string;
+    expires: number;
 }
 
 async function fetchUserInformation(token: string): Promise<User> {
     return new Promise(async (resolve) => {
        let response = await fetch("/api/me", {
+           method: "GET",
+           credentials: 'include',
            headers: {
-               "Authentication": "Bearer " + token
+               'Authorization': 'Bearer ' + token
            }
        });
 
@@ -20,7 +23,8 @@ async function fetchUserInformation(token: string): Promise<User> {
        resolve({
            firstName: json["firstName"],
            avatar: json["gravatarUrl"],
-           token
+           token: token,
+           expires: new Date().getTime() + 1000 * 60 * 60
        })
     });
 }
@@ -28,11 +32,15 @@ async function fetchUserInformation(token: string): Promise<User> {
 function checkSavedCredentialsAndLogIn() {
     let user = window.sessionStorage.getItem("user")
     if (user) {
-        login(JSON.parse(user) as User);
+        let obj = JSON.parse(user) as User
+        if (new Date().getTime() >= obj.expires) {
+            logOut();
+        }
+        login(obj);
     }
 }
 
-function logOut(e) {
+function logOut() {
     currentUser.set(undefined);
     window.sessionStorage.removeItem("user");
     redirect("/login");
@@ -44,8 +52,7 @@ function login(user: User) {
     redirect("/");
 }
 
-const currentUser: Writable<User> = writable({firstName: "Tamás", avatar: "https://gravatar.com/avatar/4a95f5bbba1cecd1dc777bf39a2b7b50?s=500", token:
-        "ddd"}); //
+const currentUser: Writable<User> = writable(undefined); //
 
 export {currentUser, logOut, login, checkSavedCredentialsAndLogIn, fetchUserInformation}
 export default currentUser;

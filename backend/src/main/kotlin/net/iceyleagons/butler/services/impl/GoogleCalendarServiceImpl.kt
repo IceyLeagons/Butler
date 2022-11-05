@@ -17,7 +17,7 @@ import java.util.*
 
 @Service
 class GoogleCalendarServiceImpl : GoogleCalendarService {
-    override fun getCalendarEvents(user: GatekeeperService.GatekeeperEntity.GatekeeperIdentity): List<CalendarEvent> {
+    override fun getCalendarEvents(user: GatekeeperService.GatekeeperIdentity): List<CalendarEvent> {
         val eventResult = Calendar.Builder(GoogleNetHttpTransport.newTrustedTransport(), gsonFactory, HttpCredentialsAdapter(GoogleCredentials.create(
             AccessToken(user.providerAccessToken, Date.from(Instant.fromEpochMilliseconds(user.providerAccessTokenExpiry).toJavaInstant()))
         ))).build().events()

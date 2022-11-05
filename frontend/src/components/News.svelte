@@ -1,9 +1,10 @@
 <script lang="ts">
-
-
     import {getNews} from "../api/newsApi.js";
+    import currentUser from "../api/user";
+
+    $: token = ($currentUser) ? $currentUser.token : ""
 </script>
-{#await getNews()}
+{#await getNews(token)}
     <p>Fetching...</p>
 {:then news}
     {#each news as data}

@@ -11,12 +11,6 @@ interface GatekeeperService {
         val displayName: String,
         val identities: List<GatekeeperIdentity>
     ) {
-        data class GatekeeperIdentity(
-            val providerId: String,
-            val providerAccessToken: String,
-            @JsonProperty("providerAccessTokenExpires") val providerAccessTokenExpiry: Long,
-            @JsonProperty("data") val extraData: Map<String, Any>
-        )
 
         fun getIdentityById(id: String): Optional<GatekeeperIdentity> {
             return Optional.ofNullable(identities.firstOrNull { it.providerId == id })
@@ -26,4 +20,10 @@ interface GatekeeperService {
     fun getAuthorizeUri(): String
     fun getLinkUri(): String
     fun fetchInformation(request: HttpServletRequest): GatekeeperEntity
+    data class GatekeeperIdentity(
+            val providerId: String,
+            val providerAccessToken: String,
+            @JsonProperty("providerAccessTokenExpires") val providerAccessTokenExpiry: Long,
+            @JsonProperty("data") val extraData: Map<String, Any>
+    )
 }
