@@ -14,7 +14,7 @@ import org.springframework.stereotype.Service
 @Service
 class MicrosoftServiceImpl : MicrosoftService {
 
-    override fun getEventsInAllCalendars(user: GatekeeperService.GatekeeperEntity.GatekeeperIdentity): List<CalendarEvent> {
+    override fun getEventsInAllCalendars(user: GatekeeperService.GatekeeperIdentity): List<CalendarEvent> {
         return with(user.providerAccessToken) {
             val list = ArrayList<CalendarEvent>()
             requestAllCalendars(this).map {

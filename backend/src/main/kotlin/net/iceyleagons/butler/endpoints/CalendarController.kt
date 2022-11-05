@@ -46,6 +46,6 @@ class CalendarController(val gatekeeper: GatekeeperService, val googleCalendarSe
         }
     }
 
-    operator fun GatekeeperService.GatekeeperEntity.GatekeeperIdentity?.invoke(): Boolean = this != null
+    operator fun GatekeeperService.GatekeeperIdentity?.invoke(): Boolean = this != null
 
 }

@@ -15,7 +15,7 @@ import java.util.*
 
 @Service
 class YoutubeServiceImpl : YoutubeService {
-    override fun getRecommendedVideos(user: GatekeeperService.GatekeeperEntity.GatekeeperIdentity): List<YoutubeService.Video> {
+    override fun getRecommendedVideos(user: GatekeeperService.GatekeeperIdentity): List<YoutubeService.Video> {
         val yt = YouTube.Builder(GoogleNetHttpTransport.newTrustedTransport(), gsonFactory, HttpCredentialsAdapter(GoogleCredentials.create(
             AccessToken(user.providerAccessToken, Date.from(Instant.fromEpochMilliseconds(user.providerAccessTokenExpiry).toJavaInstant()))
         )))

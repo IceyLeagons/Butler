@@ -6,12 +6,12 @@ import net.iceyleagons.butler.services.*
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
+import org.springframework.web.bind.annotation.RestController
 import kotlin.jvm.optionals.getOrNull
 import kotlin.time.Duration.Companion.days
 
-@Controller
+@RestController
 class RecommendationController(val gatekeeperService: GatekeeperService, val youtubeService: YoutubeService, val googlePlacesService: GooglePlacesService, val spotifyService: SpotifyService, val seatgeekService: SeatgeekService) {
-
     @OptIn(ExperimentalStdlibApi::class)
     @GetMapping("/api/me/recommendations/youtube")
     fun getYoutubeRecommendations(request: HttpServletRequest): List<YoutubeService.Video> {

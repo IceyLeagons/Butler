@@ -15,7 +15,9 @@ fun main(args: Array<String>) {
 	runApplication<ButlerApplication>(*args)
 }
 
-internal fun Request.execute(): String = client.newCall(this).execute().body.string()
+internal fun Request.execute(): String {
+	return client.newCall(this).execute().use { it.body.string() }
+}
 
 internal val json by lazy {
 	Json {

@@ -14,6 +14,7 @@ import net.iceyleagons.butler.services.RSSService
 import okhttp3.Request
 import org.springframework.stereotype.Service
 import java.text.SimpleDateFormat
+import java.util.*
 
 @Service
 class RSSServiceImpl : RSSService {
@@ -42,7 +43,7 @@ class RSSServiceImpl : RSSService {
                 RSSService.RSSResponse.Item(
                     it.title,
                     it.link,
-                    SimpleDateFormat("EEE, dd MMM yyyy HH:mm:ss zzz").parse(it.pubDate).toInstant().toKotlinInstant(),
+                    SimpleDateFormat("EEE, dd MMM YYYY HH:mm:ss zzz", Locale("en", "US")).parse(it.pubDate).toInstant().toKotlinInstant(),
                     it.description ?: ""
                 )
             })

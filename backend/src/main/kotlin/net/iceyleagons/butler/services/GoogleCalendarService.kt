@@ -4,6 +4,6 @@ import net.iceyleagons.butler.CalendarEvent
 
 interface GoogleCalendarService {
 
-    fun getCalendarEvents(user: GatekeeperService.GatekeeperEntity.GatekeeperIdentity): List<CalendarEvent>
+    fun getCalendarEvents(user: GatekeeperService.GatekeeperIdentity): List<CalendarEvent>
 
 }

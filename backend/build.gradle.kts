@@ -31,13 +31,16 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
+
 	implementation("org.jetbrains.kotlin:kotlin-stdlib")
 	implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
 	implementation("org.thymeleaf.extras:thymeleaf-extras-springsecurity6")
+
 	compileOnly("org.projectlombok:lombok")
 	annotationProcessor("org.projectlombok:lombok")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
 	testImplementation("org.springframework.security:spring-security-test")
+
 	implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.10")
 	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.4.1")
 	implementation("com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.14.0-rc3")

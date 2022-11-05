@@ -1,6 +1,7 @@
 package net.iceyleagons.butler.services.impl
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import jakarta.servlet.http.HttpServletRequest
 import net.iceyleagons.butler.execute
 import net.iceyleagons.butler.services.GatekeeperService
@@ -11,7 +12,7 @@ import org.springframework.stereotype.Service
 @Service
 class GatekeeperServiceImpl(@Value("\${gatekeeper.client_id}") val clientId: String, @Value("\${gatekeeper.client_secret}") val clientSecret: String, @Value("\${gatekeeper.redirect_uri}") val redirectUri: String, @Value("\${gatekeeper.host}") val host: String) : GatekeeperService {
 
-        val objectMapper = ObjectMapper()
+    val objectMapper = ObjectMapper().registerKotlinModule()
 
     override fun getAuthorizeUri(): String = "${host}/authorize?client_id=${clientId}&redirect_uri=${redirectUri}"
     override fun getLinkUri(): String = "${host}/link?client_id=${clientId}&redirect_uri=${redirectUri}" // + token (on frontend side)

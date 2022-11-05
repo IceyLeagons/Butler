@@ -4,9 +4,10 @@ import jakarta.servlet.http.HttpServletRequest
 import net.iceyleagons.butler.services.GatekeeperService
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.GetMapping
+import org.springframework.web.bind.annotation.RestController
 import java.security.MessageDigest
 
-@Controller
+@RestController
 class UserController(val gatekeeperService: GatekeeperService) {
 
     @GetMapping("/api/me")
