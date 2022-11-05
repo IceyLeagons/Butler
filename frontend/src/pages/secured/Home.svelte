@@ -2,10 +2,6 @@
     import currentUser from "../../api/user";
     import { getCurrentDaytime } from "../../utils/daytime";
 
-    import FullCalendar from 'svelte-fullcalendar';
-    import daygridPlugin from '@fullcalendar/daygrid';
-    import timegridPlugin from '@fullcalendar/timegrid';
-    import interactionPlugin from '@fullcalendar/interaction';
     import { onMount } from "svelte";
     import getWeather from "../../api/weather/weatherApi";
     import getCalendarData from "../../api/calendarApi";

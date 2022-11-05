@@ -33,7 +33,8 @@ function checkSavedCredentialsAndLogIn() {
     let user = window.sessionStorage.getItem("user")
     if (user) {
         let obj = JSON.parse(user) as User
-        if (new Date().getTime() >= obj.expires) {
+
+        if (new Date().getTime() >= obj.expires && obj.expires != -1) {
             logOut();
         }
         login(obj);
@@ -52,7 +53,7 @@ function login(user: User) {
     redirect("/");
 }
 
-const currentUser: Writable<User> = writable(undefined); //
+const currentUser: Writable<User> = writable({firstName: "Tamás", avatar: "https://hu.gravatar.com/avatar/345b9nu%C3%B63784b5", token: "lololol", expires: -1}); //
 
 export {currentUser, logOut, login, checkSavedCredentialsAndLogIn, fetchUserInformation}
 export default currentUser;

@@ -22,18 +22,6 @@ const pages: Page[] = [
         component: Entertainment
     },
     {
-        name: "Shopping / Food",
-        href: "/foodAndShopping",
-        icon: "fa-solid fa-cart-shopping",
-        component: Home
-    },
-    {
-        name: "Transport",
-        href: "/transport",
-        icon: "fa-solid fa-bus",
-        component: Home
-    },
-    {
         name: "Utility",
         href: "/utility",
         icon: "fa-solid fa-star",

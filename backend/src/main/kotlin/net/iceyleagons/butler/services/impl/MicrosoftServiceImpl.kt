@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service
 class MicrosoftServiceImpl : MicrosoftService {
 
     override fun getEventsInAllCalendars(user: GatekeeperService.GatekeeperIdentity): List<CalendarEvent> {
+        println("meghiivva")
         return with(user.providerAccessToken) {
             val list = ArrayList<CalendarEvent>()
             requestAllCalendars(this).map {
@@ -32,7 +33,7 @@ class MicrosoftServiceImpl : MicrosoftService {
         @Serializable
         data class Entry(val id: String, val subject: String, val start: TimeEntry, val end: TimeEntry, val location: Location, val bodyPreview: String)
         @Serializable
-        data class Response(val values: List<Entry>)
+        data class Response(val value: List<Entry>)
 
         val req = Request.Builder()
             .get()
@@ -41,11 +42,11 @@ class MicrosoftServiceImpl : MicrosoftService {
             .addHeader("Authorization", "Bearer $token")
             .build()
 
-        return json.decodeFromString<Response>(client.newCall(req).execute().body.string()).values.map {
+        return json.decodeFromString<Response>(client.newCall(req).execute().body.string()).value.map {
             CalendarEvent(
                 subject = it.subject,
-                start = Instant.parse(it.start.dateTime),
-                end = Instant.parse(it.end.dateTime),
+                start = Instant.parse(it.start.dateTime.subSequence(0, 19).toString() + "Z"),
+                end = Instant.parse(it.end.dateTime.subSequence(0, 19).toString() + "Z"),
                 location = it.location.displayName,
                 description = it.bodyPreview
             )
@@ -56,7 +57,7 @@ class MicrosoftServiceImpl : MicrosoftService {
         @Serializable
         data class Entry(val id: String)
         @Serializable
-        data class Response(val values: List<Entry>)
+        data class Response(val value: List<Entry>)
 
         val req = Request.Builder()
             .get()
@@ -65,7 +66,7 @@ class MicrosoftServiceImpl : MicrosoftService {
             .addHeader("Authorization", "Bearer $token")
             .build()
 
-        return json.decodeFromString<Response>(client.newCall(req).execute().body.string()).values.map {
+        return json.decodeFromString<Response>(client.newCall(req).execute().body.string()).value.map {
             it.id
         }
     }

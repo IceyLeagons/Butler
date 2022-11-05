@@ -1,6 +1,7 @@
 <script lang="ts">
     import boredSvg from "../../assets/bored.svg";
     import Videos from "../../components/Videos.svelte";
+    import Concerts from "../../components/Concerts.svelte";
 </script>
 
 <div class="page">
@@ -29,6 +30,7 @@
         <div class="col concert-container">
             <div class="card seatgeek">
                 <h1>Concerts you might like</h1>
+                <Concerts />
             </div>
         </div>
     </div>
